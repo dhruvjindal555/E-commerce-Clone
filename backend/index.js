@@ -8,6 +8,7 @@ connectToDatabse()
 app.use(express.json())
 app.use(cors())
 app.use('/auth', require('./Routes/auth'))
+app.use('/product', require('./Routes/product'))
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`)

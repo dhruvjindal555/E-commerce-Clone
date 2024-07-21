@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import {
     Link
 } from "react-router-dom";
@@ -6,18 +6,28 @@ import {
 
 
 function Navbar() {
+    const [cartNumber, setCartNumber] = useState(0)
     const menuButtonRef = useRef(0)
     return (
-        <div>
-            <nav className="bg-white dark:bg-gray-900 sticky w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
+        <div className=''>
+            <nav className="shadow-md bg-white dark:bg-gray-900 sticky w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
                 <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-                    <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse">
-                        <img src="https://flowbite.com/docs/images/logo.svg" className="h-8" alt="Flowbite Logo" />
-                        <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Flowbite</span>
+                    <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
+                        <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">E-Commerce</span>
                     </a>
                     <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-                        <Link to="/login"  className="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">LogIn/SignUp</Link>
-                        <button onClick={()=>{
+                        <div className='w-fit relative h-fit'>
+                            {cartNumber > 0 && (
+                                <span className='bg-red-600 absolute -top-2 text-sm -right-0 rounded-full px-1.5 font-bold'>
+                                    {cartNumber}
+                                </span>
+                            )}
+                            <div className='mx-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
+                                <i className="fa-solid fa-cart-shopping"></i>
+                            </div>
+                        </div>
+                        <Link to="/login" className="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">LogIn/SignUp</Link>
+                        <button onClick={() => {
                             menuButtonRef.current.classList.toggle('hidden')
                         }} data-collapse-toggle="navbar-sticky" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
                             <span className="sr-only">Open main menu</span>

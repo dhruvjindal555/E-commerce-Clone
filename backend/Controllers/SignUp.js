@@ -1,4 +1,4 @@
-const User = require('../Modals/UserSchema');
+const User = require('../Models/UserSchema');
 const validator = require('validator')
 const bcrypt = require('bcrypt')
 const saltRounds = 10;

@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import Review from './Review';
-import Footer from './Footer';
-import SimilarProducts from './SimilarProducts';
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
 function ProductPage() {
-    const data  = {
+    const data = {
         "id": {
             "$oid": "65b2324bfce4beb31fc99875"
         },
-        "mainCategory": "Electronics",  
+        "mainCategory": "Electronics",
         "subCategory": "Printer",
         "name": "Canon LBP-2800B inkjet printer",
         "brand": "Canon",
@@ -41,7 +41,7 @@ function ProductPage() {
 
     const handlePincodeChange = (e) => {
         setPincode(e.target.value);
-    }; 
+    };
 
     const isPincodeInvalid = () => {
         return pincode && pincode.length !== 6; // Assuming a valid pincode is 6 digits long
@@ -51,13 +51,22 @@ function ProductPage() {
 
     return (
         <div >
-            <div className="mx-20 mt-5 bg-white shadow-lg rounded-lg overflow-hidden  flex justify-evenly ">
+            <div className="mx-20 bg-white shadow-lg rounded-lg overflow-hidden  flex justify-evenly ">
                 <div className="md:flex-shrink-0 ">
-                    <img
-                        className=" object-cover w-screen-1/2"
-                        src="Screenshot 2024-07-20 141801.png"
-                        alt="Canon PowerShot ELPH 340 HS"
-                    />
+                    <Carousel className='w-screen-1/2'>
+                        {data.images.map((url, index) => {
+                            return (<div className='flex justify-center items-center '>
+                                <img
+                                    key={index}
+                                    className=" object-cover w-screen-1/2"
+                                    src={url}
+                                    alt="Canon PowerShot ELPH 340 HS"
+                                />
+                                {/* <p className="legend">{"Legend "+(index+1)}</p> */}
+                            </div>
+                            )
+                        })}
+                    </Carousel>
                 </div>
                 <div className="flex flex-col justify-start py-5">
                     <div className="px-4 py-2 flex flex-col">
@@ -79,8 +88,7 @@ function ProductPage() {
                     </div>
                     <div className="px-4  rounded mx-auto">
                         <div className="text-green-600 font-semibold ">Special Price</div>
-                        <div className="text-3xl font-bold text-gray-800">{"₹"+data.price.$numberInt} <span className="line-through text-gray-500 text-xl">{"₹"+data.mrp.$numberInt}</span> <span className="text-green-600 text-xl">25% off</span></div>
-
+                        <div className="text-3xl font-bold text-gray-800">{"₹" + data.price.$numberInt} <span className="line-through text-gray-500 text-xl">{"₹" + data.mrp.$numberInt}</span> <span className="text-green-600 text-xl">25% off</span></div>
                         <div className="mt-2">
                             <div className="text-green-600 font-semibold">Coupons for you</div>
                             <div className="text-gray-800 font-medium mt-1">
@@ -93,7 +101,6 @@ function ProductPage() {
                             </div>
                             <div className="text-indigo-500 font-medium mt-1 cursor-pointer">View more coupons</div>
                         </div>
-
                         <div className="mt-4">
                             <div className="font-semibold text-gray-800">Available offers</div>
                             <ul className="mt-2 list-disc list-inside">
@@ -107,7 +114,6 @@ function ProductPage() {
                     </div>
                     <div className="p-4 rounded ">
                         <div className="text-gray-500">For warranty details visit Brand's official website</div>
-
                         <div className="mt-4 flex justify-start items-center gap-4 ">
                             <div className="text-gray-700 font-semibold">Model year</div>
                             <div className="flex space-x-2 mt-1">
@@ -125,10 +131,8 @@ function ProductPage() {
                                 </button>
                             </div>
                         </div>
-
                         <div className="my-3  flex justify-between items-center ">
                             <div className='flex gap-4'>
-
                                 <div className="text-gray-700 font-semibold flex items-center">
                                     <svg className="w-5 h-5 text-blue-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-9.586V7a1 1 0 112 0v3a1 1 0 01-.293.707l-2 2a1 1 0 01-1.414-1.414l1.707-1.707z" />
@@ -152,17 +156,14 @@ function ProductPage() {
                             <div className="mt-4">
                                 <div className="text-gray-700 font-semibold">Highlights</div>
                                 <ul className="list-disc list-inside mt-1">
-                                    {data.features.map((item,index)=>{
+                                    {data.features.map((item, index) => {
                                         return (<li key={index} className="text-gray-700">{item}</li>)
                                     })}
-                                    
                                 </ul>
                             </div>
-
                             <div className="mt-4">
                                 <div className="text-gray-700 font-semibold">Easy Payment Options</div>
                                 <ul className="list-disc list-inside mt-1">
-                               
                                     <li className="text-gray-700">No cost EMI starting from ₹925/month</li>
                                     <li className="text-gray-700">Cash on Delivery</li>
                                     <li className="text-gray-700">Net banking & Credit/ Debit/ ATM card</li>
@@ -177,14 +178,14 @@ function ProductPage() {
                             <div className="mt-6 border-t border-gray-200 pt-4">
                                 <h2 className="text-xl font-bold">Ratings & Reviews</h2>
                                 <div className="mt-2">
-                                    <button onClick={()=>{
+                                    <button onClick={() => {
                                         console.log(showAddReview);
-                                        setShowAddReview(true)}} className="px-4 py-2 bg-gray-100 text-gray-800 rounded shadow">
+                                        setShowAddReview(true)
+                                    }} className="px-4 py-2 bg-gray-100 text-gray-800 rounded shadow">
                                         Add Review
                                     </button>
                                 </div>
-                            </div>  
-
+                            </div>
                             {/* <div className="mt-8 border-t border-gray-200 pt-4">
                                 <h2 className="text-xl font-bold">Questions and Answers</h2>
                                 <div className="mt-2">
@@ -194,12 +195,10 @@ function ProductPage() {
                                 </div>
                             </div> */}
                         </div>
-                        <Review showAddReview={showAddReview} setShowAddReview={setShowAddReview}/>
+                        <Review showAddReview={showAddReview} setShowAddReview={setShowAddReview} />
                     </div>
-
                 </div>
             </div>
-            <Footer/>
         </div>
     )
 }
