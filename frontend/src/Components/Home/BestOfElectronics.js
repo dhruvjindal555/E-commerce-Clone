@@ -56,7 +56,7 @@ const BestofElectronics = () => {
     return (
 
         <div className=' m-2 mt-5 rounded-lg border-1 mx-5 shadow-lg'>
-            <h2 className='ml-6 font-semibold text-2xl'>Choose from latest and trendy style</h2>
+            <h2 className='ml-6 font-semibold text-2xl'>Best Electronics Products</h2>
             <div className='m-3  pb-5 '>
                 <Slider {...settings}>
                     {electronicsProducts.map((product) => (
