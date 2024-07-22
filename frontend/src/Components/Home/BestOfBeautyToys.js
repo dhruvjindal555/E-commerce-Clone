@@ -5,12 +5,11 @@ const BestofBeautyToys = () => {
   const [beautyProducts, setBeautyProducts] = useState([]);
 
   useEffect(() => {
-   
-    fetch('https://flipkartclone2-o8uw.onrender.com/api/v1/products/getAllProducts')
+    fetch('http://localhost:8888/product/getAllProduct')
       .then((response) => response.json())
       .then((responseData) => {
-        console.log('API Response:', responseData); 
-        const data = responseData.data; 
+        console.log('API Response:', responseData);
+        const data = responseData.data;
 
         if (Array.isArray(data)) {
           const beautyData = data.filter((product) => product.mainCategory === 'Beauty');

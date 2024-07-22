@@ -8,15 +8,15 @@ const BestOfClothings = () => {
   const [FashionProducts, setFashionProducts] = useState([]);
 
   useEffect(() => {
-    fetch('https://flipkartclone2-o8uw.onrender.com/api/v1/products/getAllProducts')
+    fetch('http://localhost:8888/product/getAllProduct')
       .then((response) => response.json())
       .then((responseData) => {
         console.log('API Response:', responseData);
         const data = responseData.data;
 
         if (Array.isArray(data)) {
-          const electronicsData = data.filter((product) => product.mainCategory === 'Fashion');
-          setFashionProducts(electronicsData.slice(0, 7));
+          const fashionData = data.filter((product) => product.mainCategory === 'Fashion');
+          setFashionProducts(fashionData.slice(0, 7));
         } else {
           console.error('Error fetching products: Unexpected API response format');
         }
@@ -61,7 +61,7 @@ const BestOfClothings = () => {
           {FashionProducts.map((product) => (
             <Link key={product._id} to={`/${product.mainCategory}/${product.subCategory}`}>
               <div className='flex flex-col h-64 bg-white  border-gray-200 p-1 justify-center align-middle items-center'>
-                <img src={product.images[0]} alt="" className='rounded-md w-44 h-40 cursor-pointer hover:scale-110' />
+                <img src={product.images[0]} alt="" className='object-cover object-center rounded-md w-44 h-40 cursor-pointer hover:scale-110' />
                 <p className='font-base text-xl'> {product.subCategory}</p>
                 <p className='font-semibold'>Starting From Rs{product.price}</p>
               </div>

@@ -31,10 +31,24 @@ function App() {
                 <BestofElectronics />
               </>
             } />
-            <Route path="/login" element={<LogIn />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/products" element={<Products />} />
+            <Route path="/LogIn" element={<LogIn />} />
+            <Route path="/SignUp" element={<SignUp />} />
+            <Route path="/Contact" element={<Contact />} />
+            <Route path="/:mainCategory" exact element={
+              <>
+                <Categories />
+                <Products />
+              </>} />
+            <Route path="/:mainCategory/:subCategory" element={
+              <>
+                <Categories />
+                <Products />
+              </>} />
+            <Route path="/:mainCategory/:subCategory/:id" element={
+              <>
+                <Categories />
+                <ProductPage/>
+              </>} />
           </Routes>
           <Footer />
         </div>

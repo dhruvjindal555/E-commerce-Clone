@@ -1,20 +1,21 @@
 import React from 'react';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import { Link } from 'react-router-dom';
 
 
 const ProductsItem = ({ product }) => {
     return (
-        <div className="flex border rounded-lg p-4 justify-evenly shadow-md" key={product._id}>
-            <div className="flex-shrink-0">
-                <Carousel stopOnHover infiniteLoop autoPlay showThumbs={false} interval={2000} className='w-48'>
+        <Link to={product._id} className="flex border rounded-lg p-4 justify-evenly shadow-md" >
+            <div className="flex-shrink-0 overflow-hidden">
+                <Carousel stopOnHover infiniteLoop autoPlay showThumbs={false} interval={2000} className='w-48 h-48'>
                     {product.images.map((url, index) => {
-                        return (<div className='flex justify-center items-center '>
+                        return (<div className='flex justify-center items-center  'key={index}>
                             <img
-                                key={index}
+                                
                                 className=" object-cover"
                                 src={url}
-                                alt="Canon PowerShot ELPH 340 HS"
+                                alt={product.name}
                             />
                             {/* <p className="legend">{"Legend "+(index+1)}</p> */}
                         </div>
@@ -29,7 +30,7 @@ const ProductsItem = ({ product }) => {
                 </div>
                 <h2 className="text-lg font-semibold">{product.name}</h2>
                 <div className="flex items-center text-green-500 mb-2">
-                    <span className="ml-1">{product.rating.$numberInt}</span>
+                    <span className="ml-1">{product.rating}</span>
                     <i className="fa-solid fa-star fa-sm px-1"></i>
                 </div>
                 <ul className="list-disc pl-5 mb-4">
@@ -39,13 +40,13 @@ const ProductsItem = ({ product }) => {
                 </ul>
             </div>
             <div className="flex-shrink-0 text-right mr-10">
-                <div className="text-2xl font-bold">{"₹" + product.price.$numberInt}</div>
-                <div className="line-through text-gray-500">{"₹" + product.mrp.$numberInt}</div>
+                <div className="text-2xl font-bold">{"₹" + product.price}</div>
+                <div className="line-through text-gray-500">{"₹" + product.mrp}</div>
                 <div className="text-green-500">Delivery: Free</div>
                 <div className="text-gray-500">Est. Delivery Date: Thu Jul 25 2024</div>
                 <div className="text-green-600 font-semibold">Bank Offers Available</div>
             </div>
-        </div>
+        </Link>
     );
 };
 

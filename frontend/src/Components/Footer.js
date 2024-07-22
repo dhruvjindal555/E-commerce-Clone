@@ -9,12 +9,12 @@ function Footer() {
                     <div className="w-full md:w-1/4 px-4 mb-6 md:mb-0">
                         <h2 className="font-bold text-lg mb-4">INFORMATION</h2>
                         <ul className="space-y-2">
-                            <li><a href="#" className="text-gray-700 hover:text-gray-900">Home</a></li>
-                            <li><a href="#" className="text-gray-700 hover:text-gray-900">Catalog</a></li>
-                            <li><a href="#" className="text-gray-700 hover:text-gray-900">Search</a></li>
-                            <li><a href="#" className="text-gray-700 hover:text-gray-900">Blog</a></li>
-                            <li><a href="#" className="text-gray-700 hover:text-gray-900">About us</a></li>
-                            <li><a href="#" className="text-gray-700 hover:text-gray-900">Contact us</a></li>
+                            <li><a href="/" className="text-gray-700 hover:text-gray-900">Home</a></li>
+                            <li><a href="/" className="text-gray-700 hover:text-gray-900">Catalog</a></li>
+                            <li><a href="/" className="text-gray-700 hover:text-gray-900">Search</a></li>
+                            <li><a href="/" className="text-gray-700 hover:text-gray-900">Blog</a></li>
+                            <li><a href="/" className="text-gray-700 hover:text-gray-900">About us</a></li>
+                            <li><a href="/" className="text-gray-700 hover:text-gray-900">Contact us</a></li>
                         </ul>
                     </div>
 
@@ -22,9 +22,9 @@ function Footer() {
                     <div className="w-full md:w-1/4 px-4 mb-6 md:mb-0">
                         <h2 className="font-bold text-lg mb-4">MY ACCOUNT</h2>
                         <ul className="space-y-2">
-                            <li><a href="#" className="text-gray-700 hover:text-gray-900">My account</a></li>
-                            <li><a href="#" className="text-gray-700 hover:text-gray-900">My addresses</a></li>
-                            <li><a href="#" className="text-gray-700 hover:text-gray-900">My cart</a></li>
+                            <li><a href="/" className="text-gray-700 hover:text-gray-900">My account</a></li>
+                            <li><a href="/" className="text-gray-700 hover:text-gray-900">My addresses</a></li>
+                            <li><a href="/" className="text-gray-700 hover:text-gray-900">My cart</a></li>
                         </ul>
                     </div>
 
@@ -54,10 +54,10 @@ function Footer() {
 
                 {/* Social Icons */}
                 <div className="flex justify-center mt-8 space-x-4">
-                    <a href="#" className="text-gray-700 hover:text-gray-900"><i className="fab fa-facebook-f"></i></a>
-                    <a href="#" className="text-gray-700 hover:text-gray-900"><i className="fab fa-twitter"></i></a>
-                    <a href="#" className="text-gray-700 hover:text-gray-900"><i className="fab fa-instagram"></i></a>
-                    <a href="#" className="text-gray-700 hover:text-gray-900"><i className="fab fa-youtube"></i></a>
+                    <a href="/" className="text-gray-700 hover:text-gray-900"><i className="fab fa-facebook-f"></i></a>
+                    <a href="/" className="text-gray-700 hover:text-gray-900"><i className="fab fa-twitter"></i></a>
+                    <a href="/" className="text-gray-700 hover:text-gray-900"><i className="fab fa-instagram"></i></a>
+                    <a href="/" className="text-gray-700 hover:text-gray-900"><i className="fab fa-youtube"></i></a>
                 </div>
 
                 {/* Powered by */}

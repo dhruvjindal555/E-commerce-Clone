@@ -1,40 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Review from './Review';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import { useParams } from 'react-router';
 
 function ProductPage() {
-    const data = {
-        "id": {
-            "$oid": "65b2324bfce4beb31fc99875"
-        },
-        "mainCategory": "Electronics",
-        "subCategory": "Printer",
-        "name": "Canon LBP-2800B inkjet printer",
-        "brand": "Canon",
-        "price": {
-            "$numberInt": "8999"
-        },
-        "images": [
-            "https://tse3.mm.bing.net/th?id=OIP.bOIJl5r0lKahbizwG_LgCgHaHa&pid=Api&P=0&h=180",
-            "https://www.bhphotovideo.com/images/images2500x2500/canon_0958c002aa_maxify_mb2720_wireless_home_1269515.jpg"
-        ],
-        "description": "Best printer available in this range",
-        "features": [
-            "1rs per page",
-            "Both color and b/w"
-        ],
-        "rating": {
-            "$numberInt": "4"
-        },
-        "color": "Black",
-        "_v": {
-            "$numberInt": "0"
-        },
-        "mrp": {
-            "$numberInt": "12000"
-        }
-    };
+    const id = useParams()
+    const [data, setData] = useState({})
     const [modelYear, setModelYear] = useState(2023);
     const [pincode, setPincode] = useState('');
     const [showAddReview, setShowAddReview] = useState(false);
@@ -46,7 +18,27 @@ function ProductPage() {
     const isPincodeInvalid = () => {
         return pincode && pincode.length !== 6; // Assuming a valid pincode is 6 digits long
     };
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetch('http://localhost:8888/product/getAllProduct');
+                const data = await response.json();
+                console.log('Response from backend:', data);
+                const productsData = data.data || {};
 
+                const filteredProduct = productsData.filter(product => {
+                    return product.id === id
+                });
+                console.log("Filtered Products:", filteredProduct);
+                setData(filteredProduct);
+
+            } catch (error) {
+                console.error('Error fetching products:', error.message);
+            }
+        }
+        fetchData()
+        // eslint-disable-next-line
+    }, [])
 
 
     return (

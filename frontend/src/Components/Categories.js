@@ -8,6 +8,7 @@ import appliance from '../Assets/appliancesbg.png'
 import travel from '../Assets/travelbg.png'
 import beauty from '../Assets/beautybg.png';
  import bike from '../Assets/bikebg.png';
+import { Link } from 'react-router-dom';
 const categories = [
   { name: 'Grocery', image: grocery },
   { name: 'Mobiles', image: mobiles },
@@ -26,10 +27,10 @@ const Categories = () => {
       <div className="container mx-auto px-4">
         <div className="flex justify-around">
           {categories.map((category, index) => (
-            <div key={index} className="text-center">
+            <Link to={"/"+category.name} key={index} className="text-center">
               <img src={category.image} alt={category.name} className=" object-cover w-16 h-16 mx-auto mb-2" />
               <span className="text-gray-800 font-semibold">{category.name}</span>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
