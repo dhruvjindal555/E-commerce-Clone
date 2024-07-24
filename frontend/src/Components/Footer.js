@@ -1,9 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 function Footer() {
     return (
         <footer className="bg-gray-100 py-10 mt-10">
-            <div className="container mx-auto px-10">
+            <div className="container mx-auto px-10">       
                 <div className="flex flex-wrap -mx-4">
                     {/* Information */}
                     <div className="w-full md:w-1/4 px-4 mb-6 md:mb-0">
@@ -14,7 +15,7 @@ function Footer() {
                             <li><a href="/" className="text-gray-700 hover:text-gray-900">Search</a></li>
                             <li><a href="/" className="text-gray-700 hover:text-gray-900">Blog</a></li>
                             <li><a href="/" className="text-gray-700 hover:text-gray-900">About us</a></li>
-                            <li><a href="/" className="text-gray-700 hover:text-gray-900">Contact us</a></li>
+                            <li><Link to="Contact" className="text-gray-700 hover:text-gray-900">Contact us</Link></li>
                         </ul>
                     </div>
 

@@ -13,11 +13,11 @@ async function getAllProduct(req, res) {
     }
 }
 
-async function getProductByName(req, res) {
-    const { name } = req.params;
+async function getProductById(req, res) {
+    const { id } = req.params;
 
     try {
-        const product = await Product.findOne({ name });
+        const product = await Product.findOne({ _id:id });
 
         if (!product) {
             return res.status(404).json({
@@ -41,4 +41,4 @@ async function getProductByName(req, res) {
     }
 }
 
-module.exports = { getAllProduct, getProductByName }
+module.exports = { getAllProduct, getProductById }

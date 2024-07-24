@@ -3,10 +3,10 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from 'react-responsive-carousel';
 import { Link } from 'react-router-dom';
 
-
+ 
 const ProductsItem = ({ product }) => {
     return (
-        <Link to={product._id} className="flex border rounded-lg p-4 justify-evenly shadow-md" >
+        <Link to={`/${product.mainCategory}/${product.subCategory}/${product._id}`} className="flex border rounded-lg p-4 justify-evenly shadow-md" >
             <div className="flex-shrink-0 overflow-hidden">
                 <Carousel stopOnHover infiniteLoop autoPlay showThumbs={false} interval={2000} className='w-48 h-48'>
                     {product.images.map((url, index) => {

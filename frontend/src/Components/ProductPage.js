@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import Review from './Review';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
-import { useParams } from 'react-router';
+import { useLoaderData } from 'react-router';
 
 function ProductPage() {
-    const id = useParams()
-    const [data, setData] = useState({})
+    const data = useLoaderData()
     const [modelYear, setModelYear] = useState(2023);
     const [pincode, setPincode] = useState('');
     const [showAddReview, setShowAddReview] = useState(false);
@@ -18,43 +17,21 @@ function ProductPage() {
     const isPincodeInvalid = () => {
         return pincode && pincode.length !== 6; // Assuming a valid pincode is 6 digits long
     };
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('http://localhost:8888/product/getAllProduct');
-                const data = await response.json();
-                console.log('Response from backend:', data);
-                const productsData = data.data || {};
-
-                const filteredProduct = productsData.filter(product => {
-                    return product.id === id
-                });
-                console.log("Filtered Products:", filteredProduct);
-                setData(filteredProduct);
-
-            } catch (error) {
-                console.error('Error fetching products:', error.message);
-            }
-        }
-        fetchData()
-        // eslint-disable-next-line
-    }, [])
-
 
     return (
         <div >
             <div className="mx-20 bg-white shadow-lg rounded-lg overflow-hidden  flex justify-evenly ">
                 <div className="md:flex-shrink-0 ">
-                    <Carousel className='w-screen-1/2'>
+                    <Carousel stopOnHover infiniteLoop autoPlay showThumbs={false} interval={2000} className='w-screen-1/2'>
                         {data.images.map((url, index) => {
-                            return (<div className='flex justify-center items-center '>
+                            return (<div className='flex justify-center items-center ' key={index}>
                                 <img
                                     key={index}
                                     className=" object-cover w-screen-1/2"
                                     src={url}
-                                    alt="Canon PowerShot ELPH 340 HS"
+                                    alt={data.name}
                                 />
-                                {/* <p className="legend">{"Legend "+(index+1)}</p> */}
+                                <p className="legend">{"Legend " + (index + 1)}</p>
                             </div>
                             )
                         })}
@@ -70,7 +47,7 @@ function ProductPage() {
                         </div>
                         <div className="  flex gap-2 my-2 ">
                             <div className='bg-green-600 w-fit px-2 rounded-xl flex items-center text-white'>
-                                <span className='pr-1 ' >{data.rating.$numberInt} </span>
+                                <span className='pr-1 ' >{data.rating} </span>
                                 <i className="fa-solid fa-star fa-sm"></i>
                             </div>
                             <div className='w-fit text-gray-500'>
@@ -80,7 +57,7 @@ function ProductPage() {
                     </div>
                     <div className="px-4  rounded mx-auto">
                         <div className="text-green-600 font-semibold ">Special Price</div>
-                        <div className="text-3xl font-bold text-gray-800">{"₹" + data.price.$numberInt} <span className="line-through text-gray-500 text-xl">{"₹" + data.mrp.$numberInt}</span> <span className="text-green-600 text-xl">25% off</span></div>
+                        <div className="text-3xl font-bold text-gray-800">{"₹" + data.price} <span className="line-through text-gray-500 text-xl">{"₹" + data.mrp}</span> <span className="text-green-600 text-xl">25% off</span></div>
                         <div className="mt-2">
                             <div className="text-green-600 font-semibold">Coupons for you</div>
                             <div className="text-gray-800 font-medium mt-1">
@@ -196,3 +173,16 @@ function ProductPage() {
 }
 
 export default ProductPage
+export const productPageLoader = async ({ params }) => {
+    const { id } = params;
+    try {
+        const response = await fetch(`http://localhost:8888/product/getProduct/${id}`);
+        if (!response.ok) throw new Error('Network response was not ok');
+        const data = await response.json();
+        console.log('Response from backend:', data);
+        return data.data;
+    } catch (error) {
+        console.error('Error fetching product:', error);
+        return {}; // Return an empty object or handle the error as needed
+    }
+};

@@ -6,54 +6,34 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
 } from "react-router-dom";
-import Footer from "./Components/Footer";
-import Categories from "./Components/Categories";
 import Poster from "./Components/Home/Poster";
 import BestOfClothings from "./Components/Home/BestOfClothings";
 import BestofElectronics from "./Components/Home/BestOfElectronics";
-import Products from "./Components/Products/Products";
-import ProductPage from "./Components/ProductPage";
+import Products, { productsLoader } from "./Components/Products/Products";
+import ProductPage,{productPageLoader} from "./Components/ProductPage";
+import HomeLayout from "./Layout/HomeLayout";
 
+{/* <Route path="LogIn" element={<LogIn />} />
+  <Route path="SignUp" element={<SignUp />} /> */}
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path="/" element={<HomeLayout />} >
+      <Route index path="" element={<><Poster /><BestOfClothings /><BestofElectronics /></>} />
+      <Route path="Contact" element={<Contact />} />
+      <Route path=":mainCategory" element={<Products />} loader={productsLoader} />
+      <Route path=":mainCategory/:subCategory" element={<Products />} loader={productsLoader} />
+      <Route path=":mainCategory/:subCategory/:id" element={<ProductPage  />} loader={productPageLoader}/>
+    </Route >
+  )
+)
 
 function App() {
   return (
-    <>
-      <Router>
-        <div className="light">
-          <Navbar />
-          <Routes>
-            <Route path="/" exact element={
-              <>
-                <Categories />
-                <Poster />
-                <BestOfClothings />
-                <BestofElectronics />
-              </>
-            } />
-            <Route path="/LogIn" element={<LogIn />} />
-            <Route path="/SignUp" element={<SignUp />} />
-            <Route path="/Contact" element={<Contact />} />
-            <Route path="/:mainCategory" exact element={
-              <>
-                <Categories />
-                <Products />
-              </>} />
-            <Route path="/:mainCategory/:subCategory" element={
-              <>
-                <Categories />
-                <Products />
-              </>} />
-            <Route path="/:mainCategory/:subCategory/:id" element={
-              <>
-                <Categories />
-                <ProductPage/>
-              </>} />
-          </Routes>
-          <Footer />
-        </div>
-      </Router>
-    </>
+    <RouterProvider router={router} />
   );
 }
 
