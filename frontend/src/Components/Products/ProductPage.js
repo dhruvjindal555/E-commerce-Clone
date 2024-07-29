@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
-import Review from './Review';
+import React, { useContext, useState } from 'react'
+import Review from '../Review';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import { useLoaderData } from 'react-router';
+import CartContext from '../../context/CartContext/CartContext';
 
 function ProductPage() {
+    const { addToCart, cart } = useContext(CartContext)
+    
     const data = useLoaderData()
     const [modelYear, setModelYear] = useState(2023);
     const [pincode, setPincode] = useState('');
@@ -22,20 +25,34 @@ function ProductPage() {
         <div >
             <div className="mx-20 bg-white shadow-lg rounded-lg overflow-hidden  flex justify-evenly ">
                 <div className="md:flex-shrink-0 ">
-                    <Carousel stopOnHover infiniteLoop autoPlay showThumbs={false} interval={2000} className='w-screen-1/2'>
+                    <Carousel stopOnHover infiniteLoop autoPlay interval={2000} className='w-screen-75'>
                         {data.images.map((url, index) => {
-                            return (<div className='flex justify-center items-center ' key={index}>
+                            return (<div className='flex justify-center items-center h-fit w-full  ' key={index}>
                                 <img
                                     key={index}
-                                    className=" object-cover w-screen-1/2"
+                                    className="object-contain object-center max-h-96"
                                     src={url}
                                     alt={data.name}
                                 />
-                                <p className="legend">{"Legend " + (index + 1)}</p>
                             </div>
                             )
                         })}
                     </Carousel>
+                    <div className="flex space-x-4">
+                        <button
+                            onClick={() => {
+                                console.log(addToCart(data));
+                                console.log(cart);
+                            }}
+                            className=" w-full bg-yellow-300 hover:bg-yellow-400 text-white text-lg font-bold py-2 px-4 rounded inline-flex items-center justify-center ">
+                            <i className="fa-solid fa-cart-shopping pr-2"></i>
+                            Add to cart
+                        </button>
+                        <button className="w-full bg-orange-300 hover:bg-orange-400 text-white text-lg font-bold py-2 px-4 rounded inline-flex items-center justify-center">
+                            <i className="pr-2 fa-solid fa-bolt"></i>
+                            Buy Now
+                        </button>
+                    </div>
                 </div>
                 <div className="flex flex-col justify-start py-5">
                     <div className="px-4 py-2 flex flex-col">

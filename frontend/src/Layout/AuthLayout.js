@@ -1,18 +1,16 @@
 import React from 'react'
 import Navbar from '../Components/Home/Navbar'
 import Footer from '../Components/Footer'
-import Categories from '../Components/Categories'
 import { Outlet } from 'react-router'
 
-function HomeLayout() {
+function AuthLayout() {
   return (
     <>
         <Navbar/>
-        <Categories/>
         <Outlet/>
         <Footer/>
     </>
   )
 }
 
-export default HomeLayout
+export default AuthLayout

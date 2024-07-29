@@ -63,7 +63,7 @@ function LogIn() {
                   </div>
                   <button type="submit" className="dark:hover:border-gray-300 hover:border-black dark:border-2 dark:border-gray-500 border-2 w-full text-black bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 dark:text-white">Sign in</button>
                   <p className="text-sm font-light text-gray-500 dark:text-gray-400">
-                    Don't have an account yet? <Link to="/SignUp" className=" font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
+                    Don't have an account yet? <Link to="/auth/signup" className=" font-medium text-primary-600 hover:underline dark:text-primary-500">Sign up</Link>
                   </p>
                 </form>
               </div>

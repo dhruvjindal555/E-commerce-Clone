@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       width: {
-        'screen-1/2': '75vh',
+        'screen-75': '75vh',
       }
     },
   },

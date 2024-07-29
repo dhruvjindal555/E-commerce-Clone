@@ -6,14 +6,13 @@ import { Link } from 'react-router-dom';
  
 const ProductsItem = ({ product }) => {
     return (
-        <Link to={`/${product.mainCategory}/${product.subCategory}/${product._id}`} className="flex border rounded-lg p-4 justify-evenly shadow-md" >
-            <div className="flex-shrink-0 overflow-hidden">
+        <Link to={`/${product.mainCategory}/${product.subCategory}/${product._id}`} className="flex border rounded-lg p-4 justify-evenly shadow-md h-fit" >
+            <div className="flex-shrink-0  rounded-lg min-w-48 max-w-64 max-h-64 min-h-48">
                 <Carousel stopOnHover infiniteLoop autoPlay showThumbs={false} interval={2000} className='w-48 h-48'>
                     {product.images.map((url, index) => {
-                        return (<div className='flex justify-center items-center  'key={index}>
+                        return (<div className='flex justify-center items-center bg-contain 'key={index}>
                             <img
-                                
-                                className=" object-cover"
+                                className=" object-contain  max-h-48 rounded-lg"
                                 src={url}
                                 alt={product.name}
                             />
