@@ -23,9 +23,9 @@ function ProductPage() {
 
     return (
         <div >
-            <div className="mx-20 bg-white shadow-lg rounded-lg overflow-hidden  flex justify-evenly ">
-                <div className="md:flex-shrink-0 ">
-                    <Carousel stopOnHover infiniteLoop autoPlay interval={2000} className='w-screen-75'>
+            <div className="lg:mx-20 md:mx-10 mx-4 md:px-10 sm:px-4 px-2 bg-white shadow-lg rounded-lg overflow-hidden xl:flex-row flex-col flex justify-evenly ">
+                <div className="md:flex-shrink-0 flex flex-col justify-center xl:block">
+                    <Carousel stopOnHover infiniteLoop autoPlay interval={2000} className='md:w-screen-75 sm:w-fit  mx-auto'>
                         {data.images.map((url, index) => {
                             return (<div className='flex justify-center items-center h-fit w-full  ' key={index}>
                                 <img
@@ -38,7 +38,7 @@ function ProductPage() {
                             )
                         })}
                     </Carousel>
-                    <div className="flex space-x-4">
+                    <div className="flex flex-row gap-3 xl:space-x-4 justify-center">
                         <button
                             onClick={() => {
                                 console.log(addToCart(data));
@@ -48,7 +48,7 @@ function ProductPage() {
                             <i className="fa-solid fa-cart-shopping pr-2"></i>
                             Add to cart
                         </button>
-                        <button className="w-full bg-orange-300 hover:bg-orange-400 text-white text-lg font-bold py-2 px-4 rounded inline-flex items-center justify-center">
+                        <button disabled className="w-full bg-orange-300 hover:bg-orange-400 text-white text-lg font-bold py-2 px-4 rounded inline-flex items-center justify-center">
                             <i className="pr-2 fa-solid fa-bolt"></i>
                             Buy Now
                         </button>
@@ -72,7 +72,7 @@ function ProductPage() {
                             </div>
                         </div>
                     </div>
-                    <div className="px-4  rounded mx-auto">
+                    <div className="px-4  rounded xl:mx-auto">
                         <div className="text-green-600 font-semibold ">Special Price</div>
                         <div className="text-3xl font-bold text-gray-800">{"₹" + data.price} <span className="line-through text-gray-500 text-xl">{"₹" + data.mrp}</span> <span className="text-green-600 text-xl">25% off</span></div>
                         <div className="mt-2">
@@ -117,8 +117,8 @@ function ProductPage() {
                                 </button>
                             </div>
                         </div>
-                        <div className="my-3  flex justify-between items-center ">
-                            <div className='flex gap-4'>
+                        <div className="my-3  flex justify-between items-start sm:items-center sm:flex-row flex-col ">
+                            <div className='flex gap-4 ' >
                                 <div className="text-gray-700 font-semibold flex items-center">
                                     <svg className="w-5 h-5 text-blue-500 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                         <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm-1-9.586V7a1 1 0 112 0v3a1 1 0 01-.293.707l-2 2a1 1 0 01-1.414-1.414l1.707-1.707z" />
@@ -138,7 +138,7 @@ function ProductPage() {
                             </div>
                             <div className="text-gray-700 font-medium mt-1">Delivery by Wed Jul 24 2024 | Free</div>
                         </div>
-                        <div className='flex justify-between'>
+                        <div className='flex justify-between flex-col sm:flex-row'>
                             <div className="mt-4">
                                 <div className="text-gray-700 font-semibold">Highlights</div>
                                 <ul className="list-disc list-inside mt-1">
@@ -156,9 +156,9 @@ function ProductPage() {
                                 </ul>
                             </div>
                         </div>
-                        <div className='flex gap-4'>
+                        <div className='flex my-3 sm:gap-4 sm:flex-row flex-col'>
                             <span className='text-gray-700 font-semibold'>Description</span>
-                            <p className="">Best printer available in this range</p>
+                            <p className="">{data.description}</p>
                         </div>
                         <div className="p-6">
                             <div className="mt-6 border-t border-gray-200 pt-4">

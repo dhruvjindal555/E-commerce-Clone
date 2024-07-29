@@ -36,9 +36,7 @@ const Poster = () => {
                 onClickItem={(index) => handleClickItem(index)}>
                 {images.map((image, index) => (
                     <div key={index} className='cursor-pointer'>
-
                         <img src={image} alt={`Poster ${index + 1}`} />
-
                     </div>
                 ))}
             </Carousel>

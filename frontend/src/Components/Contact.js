@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { motion } from "framer-motion";
 
 function Contact() {
@@ -44,6 +44,13 @@ function Contact() {
         // },
         // );
     };
+
+    useEffect(()=>{
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    },[])
     return (
         <div><>
 

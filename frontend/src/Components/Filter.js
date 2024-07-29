@@ -37,11 +37,11 @@ const Filter = ({ filteredProducts, setFilteredProducts, brands, products }) => 
 
  
   return (
-    <div className="p-4 border rounded shadow-sm w-64 sticky top-10 ">
-      <h2 className="text-xl font-bold mb-4">Filter</h2>
-      <div className="mb-4">
+    <div className="lg:p-4 p-1 pb-2 md:p-1 mb-3 md:mb-0 border rounded flex-wrap shadow-sm xl:w-64 flex justify-around lg:flex-col sticky top-10 mr-1">
+      <h2 className="text-xl font-bold md:mb-4 w-full md:w-fit pl-2 md:p-0">Filter</h2>
+      <div className="md:mb-4">
         <label className="block font-medium mb-2">Sort by:</label>
-        <select className="w-full p-2 border rounded"
+        <select className="w-full md:p-2 p-1 border rounded"
           value={ascending}
           onChange={(e) => {
             setAscending(e.target.value)
@@ -51,7 +51,7 @@ const Filter = ({ filteredProducts, setFilteredProducts, brands, products }) => 
           <option value='false'>High to Low Price</option>
         </select>
       </div>
-      <div className="mb-4">
+      <div className="md:mb-4">
         <label className="block font-medium mb-2">Filter by Price :</label>
         <Slider min={0} max={1000000} range value={price} onChange={(e) => { handlePriceChange(e) }} />
         <div className="flex justify-between">
@@ -59,10 +59,10 @@ const Filter = ({ filteredProducts, setFilteredProducts, brands, products }) => 
           <span>₹{price[1]}</span>
         </div>
       </div>
-      <div className="mb-4">
-        <label className="block font-medium mb-2">Brand</label>
+      <div className="md:mb-4">
+        <label className="block font-medium md:mb-2 md-1">Brand</label>
         <select
-          className="w-full p-2 border rounded"
+          className="w-full md:p-2 p-1 border rounded"
           value={brand}
           onChange={(e) => {
             setBrand(e.target.value)
@@ -74,10 +74,10 @@ const Filter = ({ filteredProducts, setFilteredProducts, brands, products }) => 
           })}
         </select>
       </div>
-      <div className="mb-4">
-        <label className="block font-medium mb-2">Rating</label>
+      <div className="md:mb-4">
+        <label className="block font-medium md:mb-2 mb-1" >Rating</label>
         <select
-          className="w-full p-2 border rounded"
+          className="w-full md:p-2 p-1 border rounded"
           value={rating}
           onChange={(e) => {
             handleRatingChange(e.target.value);

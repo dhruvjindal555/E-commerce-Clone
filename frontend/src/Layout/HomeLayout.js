@@ -6,12 +6,12 @@ import { Outlet } from 'react-router'
 
 function HomeLayout() {
   return (
-    <>
+    <div className='overflow-hidden'>
         <Navbar/>
         <Categories/>
         <Outlet/>
         <Footer/>
-    </>
+    </div>
   )
 }
 

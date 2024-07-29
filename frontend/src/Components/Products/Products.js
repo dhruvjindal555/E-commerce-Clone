@@ -24,9 +24,11 @@ const Products = () => {
     setFilteredProducts(sortedProducts)
     console.log('Filtered Products Updated:', filteredProducts);
   }, [products])
+
+
   return (
-    <div className='grid grid-cols-5 mx-5'>
-      <div >
+    <div className='lg:grid lg:grid-cols-5 md:mx-5 mx-2'>
+      <div className=''>
         <Filter
           products={products}
           brands={brands}

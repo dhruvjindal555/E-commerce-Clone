@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
  
 const ProductsItem = ({ product }) => {
     return (
-        <Link to={`/${product.mainCategory}/${product.subCategory}/${product._id}`} className="flex border rounded-lg p-4 justify-evenly shadow-md h-fit" >
+        <Link to={`/${product.mainCategory}/${product.subCategory}/${product._id}`} className="flex border rounded-lg p-4 justify-evenly shadow-md h-fit flex-wrap md:flex-nowrap" >
             <div className="flex-shrink-0  rounded-lg min-w-48 max-w-64 max-h-64 min-h-48">
                 <Carousel stopOnHover infiniteLoop autoPlay showThumbs={false} interval={2000} className='w-48 h-48'>
                     {product.images.map((url, index) => {
@@ -22,7 +22,7 @@ const ProductsItem = ({ product }) => {
                     })}
                 </Carousel>
             </div>
-            <div className="flex-grow ml-4">
+            <div className="flex-grow ml-4 order-3 md:order-2">
                 <div className="flex items-center mb-2">
                     <span className="text-xl font-bold">{product.brand}</span>
                     <button className="ml-2 text-gray-500">❤️</button>
@@ -38,7 +38,7 @@ const ProductsItem = ({ product }) => {
                     })}
                 </ul>
             </div>
-            <div className="flex-shrink-0 text-right mr-10">
+            <div className="flex-shrink-0 w-full sm:w-fit text-right lg:mr-10 order-2 md:order-3">
                 <div className="text-2xl font-bold">{"₹" + product.price}</div>
                 <div className="line-through text-gray-500">{"₹" + product.mrp}</div>
                 <div className="text-green-500">Delivery: Free</div>

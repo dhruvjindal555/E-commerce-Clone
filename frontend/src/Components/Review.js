@@ -1,18 +1,18 @@
 import React from 'react'
 
-function Review({ showAddReview,setShowAddReview }) {
+function Review({ showAddReview, setShowAddReview }) {
     return (
-        <div className={`fixed inset-x-0 inset-y-20 h-full w-full z-10 ${showAddReview ? "" : "hidden"}`}>
-            <div className="bg-white p-6 max-w-2xl mx-auto rounded-lg shadow-md relative">
+        <div className={`fixed inset-x-0 xl:inset-y-24  md:inset-y-20 inset-y-36  sm:mx-0 mx-5 h-full  z-10 ${showAddReview ? "" : "hidden"}`}>
+            <div className="bg-white p-3 md:p-6 max-w-2xl mx-auto rounded-lg shadow-md relative">
                 <button
-                    onClick={()=>{setShowAddReview(false)}}
+                    onClick={() => { setShowAddReview(false) }}
                     className="absolute top-2 right-2 text-red-600 text-2xl"
                 >
                     &times;
                 </button>
-                <div className="flex justify-between items-center mb-4">
+                <div className="flex flex-col md:flex-row justify-between items-center mb-4"> {/* Stack vertically on small screens */}
                     <h2 className="text-2xl font-bold">Ratings and Reviews</h2>
-                    <span className="text-red-600">Canon LBP-2800B inkjet printer</span>
+                    <span className="text-red-600 mt-2 md:mt-0">Canon LBP-2800B inkjet printer</span> {/* Add margin-top for small screens */}
                 </div>
 
                 <div className="mb-4">
@@ -34,7 +34,7 @@ function Review({ showAddReview,setShowAddReview }) {
                     <textarea placeholder="Add description for your product .." className="w-full px-3 py-2 border border-gray-300 rounded mb-4 h-32"></textarea>
                 </div>
 
-                <div className="mb-4 flex items-center">
+                <div className="mb-4 flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-2"> {/* Stack vertically on small screens */}
                     <button className="px-2 bg-blue-100 text-blue-500 py-1 rounded-full mr-2">
                         <i className="fa-regular fa-image"></i>
                     </button>
@@ -42,6 +42,7 @@ function Review({ showAddReview,setShowAddReview }) {
                 </div>
             </div>
         </div>
+
     )
 }
 

@@ -17,6 +17,7 @@ import HomeLayout from "./Layout/HomeLayout";
 import AuthLayout from "./Layout/AuthLayout";
 import CartState from "./context/CartContext/CartState";
 import Cart from "./Components/Cart/Cart";
+import Footer from "./Components/Footer";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -24,12 +25,12 @@ const router = createBrowserRouter(
       <Route path="/" element={<HomeLayout />} >
         <Route index path="" element={<><Poster /><BestOfClothings /><BestofElectronics /></>} />
         <Route path="cart" element={<Cart />} />
-        <Route path="Contact" element={<Contact />} />
         <Route path=":mainCategory" element={<Products />} loader={productsLoader} />
         <Route path=":mainCategory/:subCategory" element={<Products />} loader={productsLoader} />
         <Route path=":mainCategory/:subCategory/:id" element={<ProductPage />} loader={productPageLoader} />
       </Route >
       {/* Routes with No Categories Layout */}
+      <Route path="Contact" element={<><Navbar/><Contact/><Footer/></>} />
       <Route path="auth" element={<AuthLayout />}>
         <Route path="login" element={<LogIn />} />
         <Route path="signup" element={<SignUp />} />
