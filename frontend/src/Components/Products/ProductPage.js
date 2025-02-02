@@ -1,17 +1,32 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Review from '../Review';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import { useLoaderData } from 'react-router';
 import CartContext from '../../context/CartContext/CartContext';
+import CheckoutModal from '../Cart/CheckoutModal';
+import OrderContext from '../../context/OrderContext/OrderContext';
+import LoadingPage from '../Home/LoadingPage';
+import { toast } from 'react-toastify';
 
 function ProductPage() {
     const { addToCart, cart } = useContext(CartContext)
-    
     const data = useLoaderData()
     const [modelYear, setModelYear] = useState(2023);
     const [pincode, setPincode] = useState('');
     const [showAddReview, setShowAddReview] = useState(false);
+    const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
+    const [couponCode, setCouponCode] = useState('');
+    const [quantity, setQuantity] = useState(1);
+    const { error, loading, handleCreateOrder, setNewOrderData } = useContext(OrderContext);
+
+    const [deliveryMethod, setDeliveryMethod] = useState('standard'); // Default delivery method
+    const [paymentMethod, setPaymentMethod] = useState('cod'); // Default payment method
+
+    const deliveryCosts = {
+        standard: 0,
+        express: 50 // Example cost for express delivery
+    };
 
     const handlePincodeChange = (e) => {
         setPincode(e.target.value);
@@ -21,6 +36,50 @@ function ProductPage() {
         return pincode && pincode.length !== 6; // Assuming a valid pincode is 6 digits long
     };
 
+    const handleBuyNow = () => {
+        setIsCheckoutModalOpen(true);
+    };
+
+    const handleCheckout = async () => {
+        if (paymentMethod === 'cod') {
+            const newOrder = {
+                itemsOrdered: [
+                    {
+                        productId: data._id,
+                        quantity: quantity,
+                        price: Math.round(data.price * quantity + deliveryCosts[deliveryMethod])
+                    }
+                ],
+                orderStatus: "Pending",
+                shippingMethod: "Standard"
+            }            
+            const response = await handleCreateOrder(newOrder);
+            if(!response.success){
+                toast.error('Order placement failed');
+                console.log(response.message);                
+                return;
+            }
+            setIsCheckoutModalOpen(false);
+            toast.success('Order placed sucessfully!');
+        }else{
+            toast.info('Online payment is not yet implemented');
+        }
+
+    };
+    // Effect to lock/unlock scroll when modal is open
+    useEffect(() => {
+        if (isCheckoutModalOpen) {
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        } else {
+            document.body.style.overflow = 'unset'; // Restore scrolling
+        }
+
+        return () => {
+            document.body.style.overflow = 'unset'; // Clean up on unmount
+        };
+    }, [isCheckoutModalOpen]);
+
+    if (loading) return <LoadingPage />
     return (
         <div >
             <div className="lg:mx-20 md:mx-10 mx-4 md:px-10 sm:px-4 px-2 bg-white shadow-lg rounded-lg overflow-hidden xl:flex-row flex-col flex justify-evenly ">
@@ -48,7 +107,9 @@ function ProductPage() {
                             <i className="fa-solid fa-cart-shopping pr-2"></i>
                             Add to cart
                         </button>
-                        <button disabled className="w-full bg-orange-300 hover:bg-orange-400 text-white text-lg font-bold py-2 px-4 rounded inline-flex items-center justify-center">
+                        <button
+                            onClick={handleBuyNow}
+                            className="w-full cursor-pointer bg-orange-300 hover:bg-orange-400 text-white text-lg font-bold py-2 px-4 rounded inline-flex items-center justify-center">
                             <i className="pr-2 fa-solid fa-bolt"></i>
                             Buy Now
                         </button>
@@ -185,6 +246,21 @@ function ProductPage() {
                     </div>
                 </div>
             </div>
+            <CheckoutModal
+                deliveryMethod={deliveryMethod}
+                setDeliveryMethod={setDeliveryMethod}
+                paymentMethod={paymentMethod}
+                setPaymentMethod={setPaymentMethod}
+                deliveryCosts={deliveryCosts}
+                isOpen={isCheckoutModalOpen}
+                onClose={() => setIsCheckoutModalOpen(false)}
+                setQuantity={setQuantity}
+                product={data}
+                quantity={quantity}
+                couponCode={couponCode}
+                setCouponCode={setCouponCode}
+                onCheckout={handleCheckout}
+            />
         </div>
     )
 }

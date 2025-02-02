@@ -17,12 +17,12 @@ const Products = () => {
       setBrands(brandsArray)
       console.log("BrandsArray", brandsArray);
     }
-    const sortedProducts = [...products].sort((a, b) =>
-      b.price - a.price
-    );
-    console.log('Sorted Products:', sortedProducts);
-    setFilteredProducts(sortedProducts)
-    console.log('Filtered Products Updated:', filteredProducts);
+    // const sortedProducts = [...products].sort((a, b) =>
+      // b.price - a.price
+    // );
+    // console.log('Sorted Products:', sortedProducts);
+    setFilteredProducts(products)
+    // console.log('Filtered Products Updated:', filteredProducts);
   }, [products])
 
 

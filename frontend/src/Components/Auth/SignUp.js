@@ -1,15 +1,18 @@
-import React,{useState} from 'react'
+import React, { useContext } from 'react'
+import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
 import {
     Link,
     useNavigate
 } from "react-router-dom";
+import AuthContext from '../../context/AuthContext/AuthContext';
+import { auth } from '../../Firebase/firebase.config';
+import { sendSignInLinkToEmail } from "firebase/auth";
+import { toast } from 'react-toastify';
+
+
 function SignUp() {
     const navigate = useNavigate()
-    const [credentials, setCredentials] = useState({
-        email: "",
-        password: "",
-        confirmPassword: ""
-    })
+    const { credentials, setCredentials, handleSignUp } = useContext(AuthContext)
 
     const onChange = (event) => {
         setCredentials({
@@ -17,29 +20,24 @@ function SignUp() {
             [event.target.name]: event.target.value
         })
     }
+    const actionCodeSettings = {
+        // URL you want to redirect back to. The domain (www.example.com) for this
+        // URL must be in the authorized domains list in the Firebase Console.
+        url: 'http://localhost:3001',
+        // This must be true.
+        handleCodeInApp: true,
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (credentials.password === credentials.confirmPassword) {
-            const response = await fetch("http://localhost:8888/auth/signup", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(credentials)
-            })
-            const data = await response.json()
-            const { success, message, authToken } = data
-            if (success) {
-                localStorage.setItem("authToken", authToken)
-                navigate('/')
-                console.log(message);
-            } else {
-                console.log(message);
-            }   
-        }else{
-            console.log("Passwords are not matching ");
+        const { success, message } = await handleSignUp();
+        if (success == true) {
+            toast.success('Signed Up Successfully!');
+            navigate('/')
+        } else {
+            toast.error(message);
         }
     }
+
     return (
         <section className=" mt-12">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0">

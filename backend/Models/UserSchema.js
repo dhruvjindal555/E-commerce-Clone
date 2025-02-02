@@ -12,8 +12,30 @@ const UserSchema = new mongoose.Schema({
     } ,
     date:{
         type:Date,
-        default:Date.now()
-    }
+        default:Date.now
+    },
+    profileUrl:{
+        type:String,
+        default:""
+    },
+    fullName:{
+        type:String,
+        default:"",
+        required: true,
+        trim: true 
+    },
+    phoneNumber:{
+        type:String,
+        default:""
+    },
+    address: {
+        street: { type: String, default: "" },
+        city: { type: String, default: "" },
+        state: { type: String, default: "" },
+        pinCode: { type: String, default: "" },
+        country: { type: String, default: "" }
+    },
+    lastLoginDate: { type: Date }
 });
 
 

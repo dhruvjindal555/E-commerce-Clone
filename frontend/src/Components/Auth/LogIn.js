@@ -1,15 +1,14 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import {
   Link,
   useNavigate
 } from "react-router-dom";
+import AuthContext from '../../context/AuthContext/AuthContext';
+import { toast } from 'react-toastify';
 
 function LogIn() {
+  const { credentials, setCredentials, handleLogIn } = useContext(AuthContext)
   const navigate = useNavigate()
-  const [credentials, setCredentials] = useState({
-    email: "",
-    password: ""
-  })
 
   const onChange = (event) => {
     setCredentials({
@@ -17,24 +16,15 @@ function LogIn() {
       [event.target.name]: event.target.value
     })
   }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch("http://localhost:8888/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(credentials)
-    })
-    const data = await response.json()
-    const { success, message, authToken } = data
-    if (success) {
-      localStorage.setItem("authToken", authToken)
-      console.log(message);
+    const { success, message } = await handleLogIn()
+    if (success == true) {
+      toast.success('Logged In Successfully!');
       navigate('/')
-
     } else {
-      console.log(message);
+      toast.error(message);
     }
   }
   return (

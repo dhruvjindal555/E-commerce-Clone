@@ -1,9 +1,10 @@
-import React, { useContext, useRef } from 'react'
+import React, { useState, useContext, useEffect, useRef } from 'react'
 import {
     Link,
     useNavigate
 } from "react-router-dom";
 import CartContext from '../../context/CartContext/CartContext';
+import { toast } from 'react-toastify';
 
 
 
@@ -11,6 +12,26 @@ function Navbar() {
     const { cartNumber } = useContext(CartContext)
     const navigate = useNavigate()
     const menuButtonRef = useRef(1)
+
+    const onLogOutIn = () => {
+        if (window.localStorage.getItem('authToken')) {
+            window.localStorage.removeItem('authToken')
+            window.localStorage.removeItem('cart')
+            toast.success('Logged Out Successfully', {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: false,
+                draggable: true,
+                progress: undefined,
+                theme: "dark"
+            });
+        }
+        navigate('/auth/login')
+    }
+
+
     return (
         <div className=''>
             <nav className="shadow-md bg-white dark:bg-gray-900 sticky w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
@@ -50,11 +71,9 @@ function Navbar() {
                             <input type="text" id="search-navbar1" className="block  w-full p-2 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search..." />
                         </div>
                         <div className="flex p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50  rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                            <Link to="/auth/login" className="cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                {
-                                    !window.localStorage.getItem('authToken') ? 'LogIn/SignUp' : "LogOut"
-                                }
-                            </Link>
+                            <div onClick={onLogOutIn} className="select-none cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                {!window.localStorage.getItem('authToken') ? 'LogIn/SignUp' : 'LogOut'}
+                            </div>
                             <div className='relative'>
                                 {cartNumber > 0 && (
                                     <span className='bg-red-600 absolute -top-2 text-sm -right-0 rounded-full px-1.5 font-bold'>
@@ -62,8 +81,8 @@ function Navbar() {
                                     </span>
                                 )}
                                 <div className=' mx-2 cursor-pointer text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'>
-                                    <div onClick={()=>{
-                                        console.log('Cart clcked');
+                                    <div onClick={() => {
+                                        console.log('Cart clicked');
                                         navigate('/cart')
                                     }} >
                                         <i className="fa-solid fa-cart-shopping"></i>
@@ -71,6 +90,11 @@ function Navbar() {
                                 </div>
                             </div>
                         </div>
+                        {window.localStorage.getItem('authToken') ? <div>
+                            <Link to='/profilePage'>
+                                <img src='Screenshot 2024-07-20 141801.png' className='h-12 w-12 cursor-pointer rounded-full' />
+                            </Link>
+                        </div> : <div></div>}
                     </div>
 
                 </div>
