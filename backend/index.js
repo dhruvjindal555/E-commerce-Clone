@@ -10,6 +10,7 @@ app.use(cors())
 app.use('/auth', require('./Routes/auth'))
 app.use('/product', require('./Routes/product'))
 app.use('/order', require('./Routes/order'))
+app.use('/user', require('./Routes/user'))
 
 app.listen(port, () => {
   console.log(`Listening at http://localhost:${port}`)
